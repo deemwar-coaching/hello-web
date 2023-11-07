@@ -1,0 +1,8 @@
+{:full-name "deemwar/helloweb"
+ :ns-name   "deemwar.helloweb"
+ :sanitized "deemwar/helloweb"
+ :name      "helloweb"
+ :modules   {:root         "modules"
+             :repositories [{:url  "https://github.com/kit-clj/modules.git"
+                             :tag  "master"
+                             :name "kit-modules"}]}}
