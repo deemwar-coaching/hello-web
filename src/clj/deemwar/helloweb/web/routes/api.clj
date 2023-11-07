@@ -3,6 +3,7 @@
     [deemwar.helloweb.web.controllers.health :as health]
     [deemwar.helloweb.web.middleware.exception :as exception]
     [deemwar.helloweb.web.middleware.formats :as formats]
+    [deemwar.helloweb.web.products.product-api :as product-api]
     [integrant.core :as ig]
     [reitit.coercion.malli :as malli]
     [reitit.ring.coercion :as coercion]
@@ -177,7 +178,6 @@
  
  
  
- 
  ;; Routes
  (defn api-routes [_opts]
    [["/swagger.json"
@@ -204,10 +204,22 @@
      {:get temperature-handler}]
     ["/string-reverse"
      {:get str-reverse-handler}]
+    
+    
+    ["/products/:id"
+     {:get product-api/product-by-id     
+     :put product-api/update-product
+     :delete product-api/delete-product}]
+["/products"
+ {:get product-api/list-products
+  :post product-api/add-product}]
+    
+
     ["/fibonacci"
      {:get fibanocii-handler}]])
  
  
+
  (derive :reitit.routes/api :reitit/routes)
  
  (defmethod ig/init-key :reitit.routes/api
