@@ -207,16 +207,20 @@
     
     
     ["/products/:id"
-     {:get product-api/product-by-id     
+     {:get product-api/product-by-id,
      :put product-api/update-product
      :delete product-api/delete-product}]
 ["/products"
  {:get product-api/list-products
-  :post product-api/add-product}]
+  :post product-api/add-product
+  }
+ ]
     
 
     ["/fibonacci"
-     {:get fibanocii-handler}]])
+     {:get (fn[req]
+             (fibanocii-handler req)
+             )}]])
  
  
 
