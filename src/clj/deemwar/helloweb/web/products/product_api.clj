@@ -1,7 +1,8 @@
 (ns deemwar.helloweb.web.products.product-api
   (:require 
    [ring.util.http-response :as http-response]
-   
+   [deemwar.helloweb.web.products.product-service :as products]
+    
    ))
 
 
@@ -21,39 +22,36 @@
 
 
 
-(defn list-products[req]  
-  (let [result {:products [{:id 25445}]}]
-   (http-response/ok  result)))
+(defn list-products [req]
+
+  (http-response/ok
+   {:products (products/list-products) }))
 
 (defn product-by-id[req]
-  
-  (print (req :path-params))
-
-  (let [id (get-in req [:path-params :id] )]    
-  (http-response/ok
-   {:products [{:received-id id  }]})  ))
+  (let [id (get-in req [:path-params :id])
+        result (products/find-product-by-id (Integer/parseInt id))]
+      (http-response/ok
+   {:result result})  ))
 
 (defn add-product[req]
+  (products/add-product (req :body-params))
+  (http-response/ok
+    {:products   (req :body-params) }))
+
+
+(defn delete-product [req]
   
-  ; to get post params
-  (println "-----")
-  (println (req :body-params))
-  (http-response/ok
-    {:products [{:id 1 :name "added product"}]}))
-
-
-(defn delete-product[req]
-
-  (println (req :path-params))
-
-  (http-response/ok
-    {:products [{:id 1 :name "deleted product"}]}))
+  (let [id (Integer/parseInt (get-in req [:path-params :id]))]
+    (products/delete-product id)
+    (http-response/ok
+     {:products   (products/find-product-by-id id)})))
 
 
 (defn update-product[req]
-    (println (req :body-params))
-  (println (req :path-params))
+ (let [id (Integer/parseInt (get-in req [:path-params :id]))
+       product-to-update (req :body-params)]   
+   (products/update-products-using-id id product-to-update)
   (http-response/ok
-    {:products [{:id 1 :name "update product"}]}))
+    {:products   (products/find-product-by-id id) })))
 
 

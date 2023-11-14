@@ -4,11 +4,13 @@
 
 (defn list-products []
   @products)
+ 
 
 (defn find-product-by-id[input]
    (->> @products
        (filter   #(= input (:id %)))
         first))
+ 
 
 (defn add-product [added-product]
   (swap! products  conj  added-product))
@@ -39,4 +41,4 @@
   (update-products-using-id  1 {:name "purse" :price 100 :review "good"})
 (delete-product 2)  
   (list-products)
-  (find-product-by-id 3))
+  (find-product-by-id 2))

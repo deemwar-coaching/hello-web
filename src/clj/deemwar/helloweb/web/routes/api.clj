@@ -10,7 +10,8 @@
     [reitit.ring.middleware.muuntaja :as muuntaja]
     [reitit.ring.middleware.parameters :as parameters]
     [reitit.swagger :as swagger]
-   [ring.util.http-response :as http-response]))
+   [ring.util.http-response :as http-response]
+   ))
 
 (def route-data
   {:coercion   malli/coercion
