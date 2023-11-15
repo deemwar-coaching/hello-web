@@ -2,7 +2,8 @@
   (:require 
    [ring.util.http-response :as http-response]
    [deemwar.helloweb.web.products.product-service :as products]
-    
+   [deemwar.helloweb.web.routes.utils :as utils]
+     [clojure.tools.logging :as log]
    ))
 
 
@@ -22,16 +23,15 @@
 
 
 
-(defn list-products [req]
-
-  (http-response/ok
-   {:products (products/list-products) }))
+(defn list-products [req]  
+  (let [query-fn (get-in req [:reitit.core/match :data :query-fn])]
+    (http-response/ok (query-fn :list-all-products {}))))
 
 (defn product-by-id[req]
-  (let [id (get-in req [:path-params :id])
-        result (products/find-product-by-id (Integer/parseInt id))]
-      (http-response/ok
-   {:result result})  ))
+  (let [id (Integer/parseInt (get-in req [:path-params :id]))
+        query-fn (get-in req [:reitit.core/match :data :query-fn])        
+        ]
+      (http-response/ok   (query-fn :product-by-id {:id id}))  ))
 
 (defn add-product[req]
   (products/add-product (req :body-params))

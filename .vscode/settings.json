@@ -1,0 +1,24 @@
+{
+    "launch": {
+
+        "configurations": [],
+        "compounds": []
+    },
+    "calva.customREPLCommandSnippets": [
+        {
+            "name": "start app",
+            "key": "s",
+            "repl": "clj",
+            "ns": "user",
+            "snippet": "(go)"
+        },
+         {
+            "name": "reset app",
+            "key": "r",
+            "repl": "clj",
+            "ns": "user",
+            "snippet": "(reset)"
+        }
+    ]
+   
+}

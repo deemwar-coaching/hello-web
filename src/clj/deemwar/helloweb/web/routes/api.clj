@@ -1,17 +1,16 @@
 (ns deemwar.helloweb.web.routes.api
-  (:require
-    [deemwar.helloweb.web.controllers.health :as health]
-    [deemwar.helloweb.web.middleware.exception :as exception]
-    [deemwar.helloweb.web.middleware.formats :as formats]
-    [deemwar.helloweb.web.products.product-api :as product-api]
-    [integrant.core :as ig]
-    [reitit.coercion.malli :as malli]
-    [reitit.ring.coercion :as coercion]
-    [reitit.ring.middleware.muuntaja :as muuntaja]
-    [reitit.ring.middleware.parameters :as parameters]
-    [reitit.swagger :as swagger]
-   [ring.util.http-response :as http-response]
-   ))
+  (:require [deemwar.helloweb.config :as config]
+            [deemwar.helloweb.web.controllers.health :as health]
+            [deemwar.helloweb.web.middleware.exception :as exception]
+            [deemwar.helloweb.web.middleware.formats :as formats]
+            [deemwar.helloweb.web.products.product-api :as product-api]
+            [integrant.core :as ig]
+            [reitit.coercion.malli :as malli]
+            [reitit.ring.coercion :as coercion]
+            [reitit.ring.middleware.muuntaja :as muuntaja]
+            [reitit.ring.middleware.parameters :as parameters]
+            [reitit.swagger :as swagger]
+            [ring.util.http-response :as http-response]))
 
 (def route-data
   {:coercion   malli/coercion
@@ -205,14 +204,12 @@
      {:get temperature-handler}]
     ["/string-reverse"
      {:get str-reverse-handler}]
-    
-    
     ["/products/:id"
      {:get product-api/product-by-id,
      :put product-api/update-product
      :delete product-api/delete-product}]
 ["/products"
- {:get product-api/list-products
+ {:get {:handler product-api/list-products} 
   :post product-api/add-product
   }
  ]
@@ -231,4 +228,4 @@
    [_ {:keys [base-path]
        :or   {base-path ""}
        :as   opts}]
-   [base-path route-data (api-routes opts)])
+   [base-path (merge opts route-data ) (api-routes opts)]) 
