@@ -3,8 +3,7 @@
             [deemwar.helloweb.web.controllers.health :as health]
             [deemwar.helloweb.web.middleware.exception :as exception]
             [deemwar.helloweb.web.middleware.formats :as formats]
-            [deemwar.helloweb.web.products.product-api :as product-api]
-            [deemwar.helloweb.web.products.product-db-service :as product-db]
+            [deemwar.helloweb.web.products.product-api :as product-api]            
             [integrant.core :as ig]
             [reitit.coercion.malli :as malli]
             [reitit.ring.coercion :as coercion]
@@ -206,20 +205,12 @@
     ["/string-reverse"
      {:get str-reverse-handler}]
     ["/products/:id"
-     {:get product-api/product-by-id,
-     :put product-api/update-product
-     :delete product-api/delete-product}]
+     {:get product-api/product-by-id}]
 ["/products"
- {:get {:handler product-api/list-products} 
+ {:get  product-api/list-products,
   :post product-api/add-product
   }] 
-     ["/products-db/:id"
-     {:get product-db/product-by-id
-       :put product-db/update-product
-      :delete product-db/delete-product}]
-    ["/products-db"
-     {:get {:handler product-db/list-products}
-      :post product-db/add-product}] 
+
     
      
 

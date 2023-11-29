@@ -1,7 +1,7 @@
 (ns deemwar.helloweb.web.products.product-api
   (:require 
    [ring.util.http-response :as http-response]
-   [deemwar.helloweb.web.products.product-service :as products]
+   [deemwar.helloweb.web.products.product-db-service :as product-db-service]
    [deemwar.helloweb.web.routes.utils :as utils]
      [clojure.tools.logging :as log]
    ))
@@ -26,33 +26,25 @@
  
 
 (defn product-by-id [req]
-  (let [id (Integer/parseInt (get-in req [:path-params :id]))]
+  (let [query-fn (get-in req [:reitit.core/match :data :query-fn])
+        id (Integer/parseInt (get-in req [:path-params :id]))]
     (http-response/ok
-   {:products (products/find-product-by-id id)})))
+   {:products (product-db-service/product-by-id id query-fn)})))
 
-(defn list-products []
+(defn list-products [req]
+   (let [query-fn (get-in req [:reitit.core/match :data :query-fn])  ]
   (http-response/ok 
-   {:products (products/list-products) }))
+   {:products (product-db-service/list-products query-fn) })))
 
  (defn add-product [req]
-   (products/add-product (req :body-params))
-   (http-response/ok
-    {:products  (req :body-params)}))
+     (let [query-fn (get-in req [:reitit.core/match :data :query-fn])
+           product-request (req :body-params) ]
+       
+       (log/info req)
+        (log/info (get-in req [:body-params]))
+       (log/info (get-in req [:remote-addr]))
 
-
-(defn delete-product [req]
-  
-  (let [id (Integer/parseInt (get-in req [:path-params :id]))]
-    (products/delete-product id)
-    (http-response/ok
-     {:products   (products/find-product-by-id id)})))
-
-
-(defn update-product [req]
- (let [id (Integer/parseInt (get-in req [:path-params :id]))
-       product-to-update (req :body-params)]   
-   (products/update-products-using-id id product-to-update)
-  (http-response/ok
-    {:products   (products/find-product-by-id id) })))
+      (http-response/ok
+       {:added-product (product-db-service/add-product product-request query-fn)})))
 
 
