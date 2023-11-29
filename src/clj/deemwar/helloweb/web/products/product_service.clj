@@ -6,7 +6,7 @@
   @products)
  
 
-(defn find-product-by-id[input]
+(defn find-product-by-id [input]
    (->> @products
        (filter   #(= input (:id %)))
         first))
@@ -41,4 +41,9 @@
   (update-products-using-id  1 {:name "purse" :price 100 :review "good"})
 (delete-product 2)  
   (list-products)
-  (find-product-by-id 2))
+  (find-product-by-id 2)
+  
+  ( def input {:name "purse" :price 100 :review "good"})
+  (get input :name )
+  (println input)
+  )

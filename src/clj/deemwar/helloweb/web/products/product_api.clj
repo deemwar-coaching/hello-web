@@ -23,20 +23,21 @@
 
 
 
-(defn list-products [req]  
-  (let [query-fn (get-in req [:reitit.core/match :data :query-fn])]
-    (http-response/ok (query-fn :list-all-products {}))))
+ 
 
-(defn product-by-id[req]
-  (let [id (Integer/parseInt (get-in req [:path-params :id]))
-        query-fn (get-in req [:reitit.core/match :data :query-fn])        
-        ]
-      (http-response/ok   (query-fn :product-by-id {:id id}))  ))
+(defn product-by-id [req]
+  (let [id (Integer/parseInt (get-in req [:path-params :id]))]
+    (http-response/ok
+   {:products (products/find-product-by-id id)})))
 
-(defn add-product[req]
-  (products/add-product (req :body-params))
-  (http-response/ok
-    {:products   (req :body-params) }))
+(defn list-products []
+  (http-response/ok 
+   {:products (products/list-products) }))
+
+ (defn add-product [req]
+   (products/add-product (req :body-params))
+   (http-response/ok
+    {:products  (req :body-params)}))
 
 
 (defn delete-product [req]
@@ -47,7 +48,7 @@
      {:products   (products/find-product-by-id id)})))
 
 
-(defn update-product[req]
+(defn update-product [req]
  (let [id (Integer/parseInt (get-in req [:path-params :id]))
        product-to-update (req :body-params)]   
    (products/update-products-using-id id product-to-update)

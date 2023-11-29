@@ -50,6 +50,6 @@
  :db.sql/migrations {:store :database,
                      :db {:datasource #ig/ref :db.sql/connection},
                      :migrate-on-init? true}
- :db.sql/connection #profile {:dev {:jdbc-url "jdbc:postgresql://localhost:5472/postgres?user=postgres&password=postgres"},
-                              :test {:jdbc-url "jdbc:postgresql://localhost:5472/postgres?user=postgres&password=postgres"},
+ :db.sql/connection #profile {:dev {:jdbc-url "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres"},
+                              :test {:jdbc-url "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres"},
                               :prod {:jdbc-url #env JDBC_URL}}}

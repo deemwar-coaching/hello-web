@@ -4,6 +4,7 @@
             [deemwar.helloweb.web.middleware.exception :as exception]
             [deemwar.helloweb.web.middleware.formats :as formats]
             [deemwar.helloweb.web.products.product-api :as product-api]
+            [deemwar.helloweb.web.products.product-db-service :as product-db]
             [integrant.core :as ig]
             [reitit.coercion.malli :as malli]
             [reitit.ring.coercion :as coercion]
@@ -211,9 +212,16 @@
 ["/products"
  {:get {:handler product-api/list-products} 
   :post product-api/add-product
-  }
- ]
+  }] 
+     ["/products-db/:id"
+     {:get product-db/product-by-id
+       :put product-db/update-product
+      :delete product-db/delete-product}]
+    ["/products-db"
+     {:get {:handler product-db/list-products}
+      :post product-db/add-product}] 
     
+     
 
     ["/fibonacci"
      {:get (fn[req]
