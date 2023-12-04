@@ -205,10 +205,14 @@
     ["/string-reverse"
      {:get str-reverse-handler}]
     ["/products/:id"
-     {:get product-api/product-by-id}]
+     {:get product-api/product-by-id 
+     :put product-api/update-product 
+      
+    :delete product-api/delete-product}]
 ["/products"
  {:get  product-api/list-products,
   :post product-api/add-product
+
   }] 
 
     
