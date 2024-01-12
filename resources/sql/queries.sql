@@ -25,4 +25,20 @@ delete from products where id=:id;
   -- :name update-product-count! :! :1
  update products set  count = :count  where id = :id;
 
+ -- :name list-users :? :*
+ select * from users;
+
+ -- :name add-new-user! :! :n
+ insert into users (user_name,password,role) values (:user_name,:password,:role);
+
+ -- :name update-user-password! :! :1
+ update users set  password = :password  where user_name = :user_name;
+
+ -- :name update-user-role! :! :1
+ update users set role= :role where user_name= :user_name;
+
+ -- :name delete-user! :? :1
+ delete from users where user_name= :user_name;  
+
+
 

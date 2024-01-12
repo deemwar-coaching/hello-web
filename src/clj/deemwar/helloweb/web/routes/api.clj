@@ -10,7 +10,8 @@
             [reitit.ring.middleware.muuntaja :as muuntaja]
             [reitit.ring.middleware.parameters :as parameters]
             [reitit.swagger :as swagger]
-            [ring.util.http-response :as http-response]))
+            [ring.util.http-response :as http-response]
+            [deemwar.helloweb.web.users.users-api :as users-api]))
 
 (def route-data
   {:coercion   malli/coercion
@@ -214,6 +215,14 @@
   :post product-api/add-product
 
   }] 
+["/users"
+ {:get users-api/list-all-users,
+  :post users-api/add-new-user,
+   :put users-api/update-user}] 
+    
+    
+    
+    
 
     
      
