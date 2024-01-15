@@ -6,11 +6,13 @@
 (defn add-new-user [added-user query-fn]
   (query-fn :add-new-user! added-user))
 
-(defn update-user-password [password-to-update user-name query-fn]
-  (query-fn :update-user-password! password-to-update {:user-name user-name}))
+(defn update-user [ id password-to-update role-to-update query-fn]
+ (if (= nil role-to-update)
+   (query-fn :update-user-password!  {:password password-to-update :id id})
+   (query-fn :update-user-role!  {:role role-to-update :id id})))
 
-(defn update-user-role [role-to-update user-name query-fn]
-  (query-fn :update-user-role! role-to-update {:user-name user-name}))
+ 
 
-(defn delete-user [user-name query-fn]
-  (query-fn :delete-user! {:user-name user-name}))
+(defn delete-user [id query-fn]
+  (query-fn :delete-user! {:id 6}))
+

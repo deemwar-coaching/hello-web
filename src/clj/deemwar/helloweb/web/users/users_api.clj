@@ -20,13 +20,16 @@
  
 (defn update-user [req]
   (let [query-fn (get-in req [:reitit.core/match :data :query-fn])
-        user-name   (get-in req [:params :user_name])
-        password (get (req :body-params) :password)
-        role (get (req :body-params) :role)]
-    (if (= nil password)
-      (http-response/ok
-       {:updated-product (users-db-service/update-user-role user-name role query-fn)})
-      (http-response/ok
-       {:updated-product (users-db-service/update-user-password user-name password query-fn)}))))
+        id (Integer/parseInt (get-in req [:path-params :id]))
+       password (get (req :body-params) :password)
+      role (get (req :body-params) :role)]
+    (http-response/ok
+       {:updated-product (users-db-service/update-user id password role   query-fn)})
+        ))
 
 
+(defn delete-user [req]
+  (let [query-fn (get-in req [:reitit.core/match :data :query-fn])
+        id (Integer/parseInt (get-in req [:path-params :id]))]
+    (http-response/ok
+      {:products (users-db-service/delete-user id query-fn)})))

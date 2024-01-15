@@ -45,12 +45,10 @@
         id (Integer/parseInt (get-in req [:path-params :id]))
         price (get (req :body-params) :price)
         count (get (req :body-params) :count)]
-    (if (= nil price)
-      (http-response/ok
-     {:updated-product (product-db-service/update-product-count id count query-fn)})
-      (http-response/ok
-       {:updated-product (product-db-service/update-product-price id  price query-fn)}))
-       )) 
+  (http-response/ok
+     {:updated-product (product-db-service/update-product id price count query-fn)})
+      )
+        )
 
 
 

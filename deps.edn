@@ -24,6 +24,8 @@
  io.github.kit-clj/kit-undertow {:mvn/version "1.0.6"}
  io.github.kit-clj/kit-sql-conman {:mvn/version "1.0.5"}
  io.github.kit-clj/kit-sql-migratus {:mvn/version "1.0.2"}
+           buddy/buddy-hashers {:mvn/version "1.4.0"}
+
  org.postgresql/postgresql {:mvn/version "42.3.4"}}
  :aliases {:build {:deps {io.github.clojure/tools.build {:git/sha "24f2894"
                                                          :git/tag "v0.9.5" :git/url "https://github.com/clojure/tools.build.git"}}

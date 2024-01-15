@@ -218,7 +218,12 @@
 ["/users"
  {:get users-api/list-all-users,
   :post users-api/add-new-user,
-   :put users-api/update-user}] 
+    }]
+
+    ["/users/:id"
+     {
+      :put users-api/update-user
+      :delete users-api/delete-user}]
     
     
     
