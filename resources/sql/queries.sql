@@ -40,6 +40,8 @@ update users set  password = :password  where id = :id;
 -- :name update-user-role! :! :1
 update users set  role = :role  where id = :id;
 
+--:name encrypt-password! :1 :1
+update users set password= :password where id= :id;
 
 
 

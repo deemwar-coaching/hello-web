@@ -222,8 +222,11 @@
 
     ["/users/:id"
      {
-      :put users-api/update-user
+      :post users-api/update-user
       :delete users-api/delete-user}]
+
+    ["/users-encrypt/:id"
+     {  :post users-api/encrypt-password}]
     
     
     
