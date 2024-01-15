@@ -16,11 +16,11 @@
 
  (defn add-new-user [req]
    (let [query-fn (get-in req [:reitit.core/match :data :query-fn])
-          user_name (get-in req [:body-params :user_name])
+          username (get-in req [:body-params :username])
          password   (hashers/derive (get-in req [:body-params :password] ))
          role (get-in req [:body-params :role])]
      (http-response/ok
-      {:add-product (users-db-service/add-new-user  user_name password role query-fn)})))
+      {:add-product (users-db-service/add-new-user  username password role query-fn)})))
  
 (defn update-user [req]
   (let [query-fn (get-in req [:reitit.core/match :data :query-fn])
@@ -33,12 +33,12 @@
 
 (defn login-user [req]
  ( let [query-fn (get-in req [:reitit.core/match :data :query-fn])
-       user_name (get-in req [:body-params :user_name])
+       username (get-in req [:body-params :username])
         entered-password (get-in req [:body-params :password])
-        password (get  (users-db-service/find-user user_name query-fn) :password)]
+        password (get  (users-db-service/find-user username query-fn) :password)]
    (if (= (hashers/check entered-password password) true )
      (http-response/ok
-       {:user-logged-in (users-db-service/logged-in-user user_name query-fn)})
+       {:user-logged-in ( users-db-service/logged-in-user username query-fn)})
      (http-response/ok
        {:login-failed "401 Unauthorized"  }))))
 

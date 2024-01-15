@@ -29,7 +29,7 @@ delete from products where id=:id;
  select * from users order by id;
 
  -- :name add-new-user! :! :n
- insert into users (user_name,password,role) values (:user_name,:password,:role);
+ insert into users (username,password,role) values (:username,:password,:role);
 
 -- :name delete-user! :? :1
 delete from users where id=:id;
@@ -44,8 +44,8 @@ update users set  role = :role  where id = :id;
 update users set password= :password where id= :id;
 
 --:name find-user! :? :1
-select * from users where user_name= :user_name;
+select * from users where username= :username;
 
 --:name logged-in-user! :? :1
-select user_name,role from users where user_name =:user_name;
+select username,role from users where username =:username;
 
