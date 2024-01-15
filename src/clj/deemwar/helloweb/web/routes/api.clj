@@ -217,7 +217,8 @@
   }] 
 ["/users"
  {:get users-api/list-all-users,
-  :post users-api/add-new-user,
+  :put users-api/add-new-user,
+  :post users-api/login-user
     }]
 
     ["/users/:id"

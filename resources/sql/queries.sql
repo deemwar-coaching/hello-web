@@ -43,6 +43,9 @@ update users set  role = :role  where id = :id;
 --:name encrypt-password! :1 :1
 update users set password= :password where id= :id;
 
+--:name find-user! :? :1
+select * from users where user_name= :user_name;
 
-
+--:name logged-in-user! :? :1
+select user_name,role from users where user_name =:user_name;
 

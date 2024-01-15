@@ -31,6 +31,17 @@
        {:updated-product (users-db-service/update-user id password role   query-fn)})
         ))
 
+(defn login-user [req]
+ ( let [query-fn (get-in req [:reitit.core/match :data :query-fn])
+       user_name (get-in req [:body-params :user_name])
+        entered-password (get-in req [:body-params :password])
+        password (get  (users-db-service/find-user user_name query-fn) :password)]
+   (if (= (hashers/check entered-password password) true )
+     (http-response/ok
+       {:user-logged-in (users-db-service/logged-in-user user_name query-fn)})
+     (http-response/ok
+       {:login-failed "401 Unauthorized"  }))))
+
 (defn encrypt-password [req]
   (let [query-fn (get-in req [:reitit.core/match :data :query-fn])
         id (Integer/parseInt (get-in req [:path-params :id]))
