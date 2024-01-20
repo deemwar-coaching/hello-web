@@ -57,3 +57,4 @@
         id (Integer/parseInt (get-in req [:path-params :id]))]
     (http-response/ok
       {:products (users-db-service/delete-user id query-fn)})))
+
